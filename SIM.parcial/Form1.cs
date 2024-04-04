@@ -75,6 +75,7 @@ namespace SIM.parcial
                         Reporte reporte = new Reporte();
                         reporte.Codigo = departamentoss.Codigo;
                         reporte.NombreDep = departamentoss.Nombre;
+                        reporte.Fecha = temperatura.Fecha;
                         reporte.Temperatura = temperatura.Temperaturas;
 
                         reportes.Add(reporte);
