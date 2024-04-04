@@ -101,7 +101,8 @@ namespace SIM.parcial
                 }
             }
             //guardarReporte();
-            
+            decimal i = reportes.Average(a => a.Temperatura);
+            label4.Text = i.ToString();
 
         }
       
