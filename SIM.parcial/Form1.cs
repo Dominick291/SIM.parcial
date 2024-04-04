@@ -62,9 +62,26 @@ namespace SIM.parcial
             }
             writer.Close();
         }
+        public void guardarReporte()
+        {
+            String fileName = "Reporte.txt";
 
+            FileStream stream = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Read);
+            StreamWriter writer = new StreamWriter(stream);
+            foreach (var reporte in reportes)
+            {
+                writer.WriteLine(reporte.Codigo);
+                writer.WriteLine(reporte.NombreDep);
+                writer.WriteLine(reporte.Fecha);
+                writer.WriteLine(reporte.Temperatura);
+
+            }
+            writer.Close();
+        }
         public void datos()
         {
+            
+
             foreach (Departamentos departamentoss in departamentos)
             {
                 int noDep = departamentoss.Codigo;
@@ -78,11 +95,16 @@ namespace SIM.parcial
                         reporte.Fecha = temperatura.Fecha;
                         reporte.Temperatura = temperatura.Temperaturas;
 
+
                         reportes.Add(reporte);
                     }
                 }
             }
+            //guardarReporte();
+            
+
         }
+      
 
 
         public void MostrarReporte()
@@ -104,14 +126,49 @@ namespace SIM.parcial
             temperatura.Fecha = DateTime.Now;
 
             temperaturas.Add(temperatura);
-            datos();
-            MostrarReporte();
+            //datos();
+
             
         }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
             cargarDepartamentos();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //decimal mayor = reportes.Max(a => a.Temperatura);
+
+            dataGridView1.DataSource = null;
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
+            dataGridView1.Refresh();
+            dataGridView1.DataSource = "";
+
+            Reporte reporte = reportes.OrderByDescending(a => a.Temperatura).First();
+            reportes.Clear();
+            reportes.Add(reporte);
+
+
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = reportes;
+            dataGridView1.Refresh();
+
+
+
+
+
+        }
+
+        private void buttonCargar_Click(object sender, EventArgs e)
+        {
+            datos();
+            MostrarReporte();
+            
+        }
+
+       
     }
 }
